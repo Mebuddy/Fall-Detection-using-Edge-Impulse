@@ -1,77 +1,76 @@
-Overview
+# Edge_Impulse
 
+This directory contains resources and code related to integrating Edge Impulse with the Fall Detection project.
 
-Create an account in edge impulse and open commannd prompt on your device.
-Upload a basic code of MPU6050 into microcontroller(This guide helps in esp32/esp32-cam).
-Based on the time delay set in the code, the frequency will change during the data collection process.
-The base code for MPU6050 will be attached to this.
-Open Powershell/Cmd Prompt(Powershell works better)
-Install edge impulse using the prompt from the website
-Then type "edge-impulse-data-forwarder --clean", This command is used to create a new library where all the data is stored.
-Connect the device to your computer and select the COM port that's connected to 
-Give it a name and start the recording process
-Head to the edge impulse website and you will see your device there
-Give it a name for the training dataset, and start recording the data.
-Once the data is created it can be sent through various mathematical equations to get the required.
+## Overview
 
+Edge Impulse is an embedded machine learning platform that enables you to build and deploy machine learning models on edge devices. In this project, it is used for detecting falls via sensor data, such as from accelerometers or gyroscopes, and deploying the trained model to a microcontroller or embedded system.
 
-Step 1:
-Upload the basic code and follow steps from 9 to 14 in the overview.
+## Structure
 
-Step 2: 
-After the recording process, 
-1. Click on Create Impulse in the side bar and select the following settings
-2.Window increase (stride)- 250ms
-3.Window size-1500ms
-4.Choose all the axes
-5.Choose classification
-6. Choose output features
-7.Save the impulse
-8.Now click on Spectral features from the menu
-9.Scale axes-1
-Input decimation ratio-1
-Type-none
-Analysis Type 
-FFT
-FFT length-32
-Take log of spectrum? YES
- 
-Overlap FFT frames? YES
- 
-Improve low frequency resolution? NO
+- **Model files**: Exported machine learning models from Edge Impulse.
+- **Deployment code**: Scripts or code snippets to run the model on supported hardware.
+- **Sensor integration**: Example code to collect data from sensors and pass it to the model for inference.
+- **Testing and evaluation**: Scripts and data for validating the performance of the deployed model.
 
-10. Click save parameters
+## Getting Started
 
-11.Click classifer from the menu and select the following options
+### 1. Data Collection
 
+1. Connect your sensor (e.g., accelerometer) to your device.
+2. Use Edge Impulse tools or provided scripts to collect motion/fall data.
+3. Upload and label data in your Edge Impulse project.
 
-Number of training cycles-100
-Use learned optimizer? NO
- 
-Learning rate-0.005
-Training processor? CPU
+### 2. Model Training
 
-**NOTE: PLAY AROUND WITH THE CYCLES AND LEARNING RATE FOR OPTIMUM RESULTS**
+- Use the Edge Impulse Studio to:
+  - Design signal processing and learning blocks.
+  - Train a fall detection model on your dataset.
 
-12. Click on Save&Train. Once done it will show the accuracy of each classification.
+### 3. Model Deployment
 
-Step3: Deployment
+- Export the trained model as C++ code, library, or binary, depending on your device.
+- Place the exported model files in this directory.
+- Use the provided deployment scripts or instructions to flash/run the model on your device.
 
-Once satisfied with the results, click on deployment from the menu
-1. Choose Arduino Library.
-2. This installs the zip file
+### 4. Running Inference
 
-Step 4: Arduino IDE Setup
+- Use the sample code to read sensor data and pass it to the deployed model.
+- Monitor the output for fall detection events.
 
-1. Sketch->Include Lib->Add Zip Lib
-2. Select the zip that just installed.
-3. Once done, u need to find the header file's name so that u can include it in your regular code.
-4.File->Examples->Find the zip file's name->static_buffer->static-buffer.
-5.Once this open's you will see the header file for your CUSTOM TRAINED MODEL.
-6.This Repositery is a guide for remotely running the ML Model and once the threshold is met, it sends the data to a whatsapp user using Whatbot_API
+## Prerequisites
 
+- Edge Impulse account ([https://edgeimpulse.com/](https://edgeimpulse.com/))
+- Supported hardware (e.g., Arduino Nano 33 BLE Sense, Raspberry Pi, etc.)
+- Required drivers and dependencies for your hardware.
 
-Step 5:
+## Example Usage
 
-1. The setup of whatabot can be looked through from their website
-2. This code will send the message when the threshold is met.
+```cpp
+// Pseudocode for running inference
+#include "edge-impulse-model.h"
+#include "sensor.h"
+
+void loop() {
+    float input_buffer[EI_INPUT_SIZE];
+    read_sensor_data(input_buffer);
+    ei_impulse_result_t result = run_inference(input_buffer);
+    if (result.fall_detected) {
+        alert_fall();
+    }
+}
+```
+
+## Resources
+
+- [Edge Impulse Documentation](https://docs.edgeimpulse.com/)
+- [Fall Detection on Edge Devices](https://www.edgeimpulse.com/blog/fall-detection)
+- Example scripts and code in this folder.
+
+## Contributing
+
+Feel free to contribute improvements, bug fixes, or new scripts related to Edge Impulse integration for fall detection.
+
+## License
+
+See the root [LICENSE](../LICENSE) file for details.

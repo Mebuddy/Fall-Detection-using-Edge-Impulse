@@ -1,0 +1,12 @@
+Create an account in edge impulse and open commannd prompt on your device.
+Upload a basic code of MPU6050 into microcontroller(This guide helps in esp32/esp32-cam).
+Based on the time delay set in the code, the frequency will change during the data collection process.
+The base code for MPU6050 will be attached to this.
+Open Powershell/Cmd Prompt(Powershell works better)
+Install edge impulse using the prompt from the website
+Then type "edge-impulse-data-forwarder --clean", This command is used to create a new library where all the data is stored.
+Connect the device to your computer and select the COM port that's connected to 
+Give it a name and start the recording process
+Head to the edge impulse website and you will see your device there
+Give it a name for the training dataset, and start recording the data.
+Once the data is created it can be sent through various mathematical equations to get the required.
